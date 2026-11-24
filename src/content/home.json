@@ -48,23 +48,51 @@
       {
         "title": "Timber paling replacement",
         "photos": [
-          { "stage": "Before", "image": "/images/paling-before.jpg", "alt": "Old fence removed, frame going up" },
-          { "stage": "After", "image": "/images/paling-fence-with-gate.jpg", "alt": "Finished timber paling fence" }
+          {
+            "stage": "Before",
+            "image": "/images/paling-before.jpg",
+            "alt": "Old fence removed, frame going up"
+          },
+          {
+            "stage": "After",
+            "image": "/images/paling-fence-with-gate.jpg",
+            "alt": "Finished timber paling fence"
+          }
         ]
       },
       {
         "title": "Colorbond install",
         "photos": [
-          { "stage": "Before", "image": "/images/colorbond-before.jpg", "alt": "Posts set in the ground for a Colorbond fence" },
-          { "stage": "After", "image": "/images/colorbond-fence.jpg", "alt": "Finished grey Colorbond fence" }
+          {
+            "stage": "Before",
+            "image": "/images/colorbond-before.jpg",
+            "alt": "Posts set in the ground for a Colorbond fence"
+          },
+          {
+            "stage": "After",
+            "image": "/images/colorbond-fence.jpg",
+            "alt": "Finished grey Colorbond fence"
+          }
         ]
       },
       {
         "title": "Full boundary rebuild",
         "photos": [
-          { "stage": "Before", "image": "/images/boundary-before.jpg", "alt": "Collapsed old fence along a house" },
-          { "stage": "During", "image": "/images/boundary-during.jpg", "alt": "New posts and rails going in" },
-          { "stage": "After", "image": "/images/boundary-after.jpg", "alt": "Finished timber paling boundary fence" }
+          {
+            "stage": "Before",
+            "image": "/images/boundary-before.jpg",
+            "alt": "Collapsed old fence along a house"
+          },
+          {
+            "stage": "During",
+            "image": "/images/boundary-during.jpg",
+            "alt": "New posts and rails going in"
+          },
+          {
+            "stage": "After",
+            "image": "/images/boundary-after.jpg",
+            "alt": "Finished timber paling boundary fence"
+          }
         ]
       }
     ]
@@ -73,7 +101,16 @@
     "eyebrow": "Free quote",
     "heading": "Let's talk about your fence",
     "text": "Tell us what you need and we'll get back to you with a free quote. Prefer to talk? Give us a call.",
-    "fenceTypes": ["Timber paling", "Colorbond", "Commercial", "Gates", "Not sure yet"],
-    "button": "Send my quote request"
+    "fenceTypes": [
+      "Timber paling",
+      "Colorbond",
+      "Commercial",
+      "Gates",
+      "Not sure yet"
+    ],
+    "button": "Send my quote request",
+    "smsButton": "Send as a text message",
+    "smsIntro": "Hi James, quote request from the I Do Fencing website:",
+    "smsHint": "Opens the messages app on your phone with your details filled in, ready to text to {phone}. Just press send."
   }
 }

@@ -9,5 +9,6 @@
   "siteUrl": "",
   "accent": "#C8102E",
   "logo": "/images/logo.jpg",
-  "socialImage": "/images/og-image.jpg"
+  "socialImage": "/images/og-image.jpg",
+  "smsPhone": ""
 }

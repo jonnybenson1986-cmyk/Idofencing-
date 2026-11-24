@@ -8,6 +8,8 @@ import { settings, telHref, fill } from '../lib/site.js';
 const { hero, services, work, quote } = page;
 const trust = page.trust.map(fill).filter(Boolean);
 const hasEmail = settings.email && !settings.email.startsWith('[');
+// Number quote texts go to: the dedicated text number if set, otherwise the main phone.
+const smsNumber = String(settings.smsPhone || settings.phone).replace(/[^\d+]/g, '');
 const stageClass =(stage: string) => 'stage stage--' + String(stage).toLowerCase();
 ---
 
@@ -134,8 +136,55 @@ const stageClass =(stage: string) => 'stage stage--' + String(stage).toLowerCase
         </label>
         <label class="field field--full">Approx. length (metres)<input type="text" name="length" inputmode="decimal" /></label>
         <label class="field field--full">Tell us about the job<textarea name="message" rows="4"></textarea></label>
+        <input type="hidden" name="sent-via" value="website form" />
         <button type="submit" class="btn btn--primary">{quote.button}</button>
+        <div class="or-divider" aria-hidden="true"><span>or</span></div>
+        <button
+          type="button"
+          class="btn btn--outline btn--icon"
+          data-sms-number={smsNumber}
+          data-sms-intro={quote.smsIntro || 'Hi, quote request from the website'}
+        >
+          <Icon name="message" size={22} />{quote.smsButton || 'Send as a text message'}
+        </button>
+        <p class="form-note">{fill(quote.smsHint || '').replace(settings.phone, settings.phone.replace(/ /g, '\u00a0'))}</p>
       </form>
     </div>
   </section>
+
+  <script>
+    // "Send as a text message": opens the visitor's messaging app addressed to the business
+    // mobile, with the quote details pre-typed. A copy is also saved to Netlify Forms in the
+    // background (marked "text message") so the lead isn't lost if they never press send.
+    const form = document.querySelector<HTMLFormElement>('form[name="quote"]');
+    const smsBtn = form?.querySelector<HTMLButtonElement>('[data-sms-number]');
+
+    smsBtn?.addEventListener('click', () => {
+      if (!form || !form.reportValidity()) return;
+      const data = new FormData(form);
+      const val = (name: string) => String(data.get(name) ?? '').trim();
+      const length = val('length');
+
+      const details = [
+        `Name: ${val('name')}`,
+        `Phone: ${val('phone')}`,
+        val('suburb') && `Suburb: ${val('suburb')}`,
+        val('fence-type') && `Fence type: ${val('fence-type')}`,
+        length && `Approx. length: ${length}${/^[\d.\s]+$/.test(length) ? ' m' : ''}`,
+        val('message') && `Job: ${val('message')}`,
+      ].filter(Boolean);
+      const lines = [smsBtn.dataset.smsIntro ?? '', '', ...details];
+
+      data.set('sent-via', 'text message');
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+        keepalive: true,
+      }).catch(() => {});
+
+      // "?&body=" works on both iPhone and Android messaging apps.
+      window.location.href = `sms:${smsBtn.dataset.smsNumber}?&body=${encodeURIComponent(lines.join('\n'))}`;
+    });
+  </script>
 </Base>

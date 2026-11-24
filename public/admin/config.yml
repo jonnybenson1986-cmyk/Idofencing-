@@ -108,6 +108,9 @@ collections:
               - { label: Text, name: text, widget: text }
               - { label: Fence type options (form dropdown), name: fenceTypes, widget: list, field: { label: Option, name: option, widget: string } }
               - { label: Button text, name: button, widget: string }
+              - { label: Text-message button text, name: smsButton, widget: string }
+              - { label: Text message greeting, name: smsIntro, widget: string, hint: "First line of the pre-filled text, e.g. “Hi James, quote request from the website:”" }
+              - { label: Text-message note under the button, name: smsHint, widget: string, required: false, hint: "{phone} is replaced with the number from Site Settings." }
 
       # ------------------------------------------------------------ BUILDERS
       - name: builders
@@ -218,6 +221,7 @@ collections:
         fields:
           - { label: Business name, name: businessName, widget: string, hint: "The last word is shown in red in the header." }
           - { label: Phone, name: phone, widget: string, hint: "Shown everywhere on the site and used for tap-to-call." }
+          - { label: Mobile for quote text messages, name: smsPhone, widget: string, required: false, hint: "Leave empty to use the phone number above." }
           - { label: Email, name: email, widget: string, required: false }
           - { label: ABN, name: abn, widget: string, required: false }
           - { label: Service area, name: serviceArea, widget: string, required: false, hint: "e.g. Cairns & surrounds" }
