@@ -1,0 +1,129 @@
+---
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import { settings, telHref, brandParts } from '../lib/site.js';
+
+interface Link {
+  label: string;
+  href: string;
+  highlight?: boolean;
+}
+interface Props {
+  title: string;
+  description: string;
+  topbar: string;
+  phoneLabel?: string;
+  nav: Link[];
+  cta: Link;
+  footerLinks: Link[];
+  noindex?: boolean;
+}
+
+const { title, description, topbar, phoneLabel = 'Call', nav, cta, footerLinks, noindex = false } = Astro.props;
+const brand = brandParts();
+// Only accept a plain hex colour from the CMS so nothing else can be injected into the stylesheet.
+const accent = /^#[0-9a-f]{3,8}$/i.test(settings.accent || '') ? settings.accent : '#C8102E';
+const siteUrl = (settings.siteUrl || '').replace(/\/$/, '');
+const canonical = siteUrl ? siteUrl + Astro.url.pathname : null;
+const socialImage = siteUrl ? siteUrl + settings.socialImage : settings.socialImage;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HomeAndConstructionBusiness',
+  name: settings.businessName,
+  telephone: settings.phone,
+  ...(siteUrl && { url: siteUrl, image: siteUrl + settings.logo }),
+  ...(settings.serviceArea && !settings.serviceArea.startsWith('[') && { areaServed: settings.serviceArea }),
+  ...(settings.email && !settings.email.startsWith('[') && { email: settings.email }),
+};
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta name="theme-color" content="#111113" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImage} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <style is:inline set:html={`:root{--accent:${accent};}`} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="topbar">
+      <div class="container">
+        <span>{topbar}</span>
+        <a href={telHref()}>{phoneLabel} {settings.phone}</a>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="/">
+          <img src={settings.logo} alt={`${settings.businessName} logo`} width="76" height="76" />
+          <span class="brand-name">{brand.first} <span>{brand.last}</span></span>
+        </a>
+        <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false">
+          <span class="visually-hidden">Menu</span>
+          <Icon name="menu" size={26} />
+        </button>
+        <nav id="site-nav" class="nav" aria-label="Main">
+          {nav.map((l) => <a href={l.href} class={l.highlight ? 'nav-highlight' : undefined}>{l.label}</a>)}
+          <a href={cta.href} class="btn btn--primary">{cta.label}</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-brand">
+          <img src={settings.logo} alt="" width="64" height="64" loading="lazy" />
+          <div class="stack" style="gap: 4px">
+            <span class="footer-name">{settings.businessName}</span>
+            {settings.abn && <span style="font-size: 14px">ABN {settings.abn}</span>}
+          </div>
+        </div>
+        <div class="footer-links">
+          {footerLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+          <a class="footer-phone" href={telHref()}>{settings.phone}</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+      const nav = document.getElementById('site-nav');
+      if (toggle && nav) {
+        const setOpen = (open: boolean) => {
+          nav.classList.toggle('is-open', open);
+          toggle.setAttribute('aria-expanded', String(open));
+        };
+        toggle.addEventListener('click', () => setOpen(!nav.classList.contains('is-open')));
+        nav.addEventListener('click', (e) => {
+          if ((e.target as HTMLElement).closest('a')) setOpen(false);
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') setOpen(false);
+        });
+      }
+    </script>
+  </body>
+</html>

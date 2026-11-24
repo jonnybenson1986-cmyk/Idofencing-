@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import home from '../content/home.json';
+---
+
+<Base
+  title="Page not found | I Do Fencing"
+  description="That page doesn't exist."
+  topbar={home.topbar}
+  nav={[
+    { label: 'Home', href: '/' },
+    { label: 'For Builders', href: '/builders/', highlight: true },
+  ]}
+  cta={{ label: 'Get a Free Quote', href: '/#quote' }}
+  footerLinks={[
+    { label: 'Home', href: '/' },
+    { label: 'For Builders', href: '/builders/' },
+  ]}
+  noindex
+>
+  <section class="section simple">
+    <div class="container">
+      <div class="stack">
+        <span class="eyebrow">404</span>
+        <h1 class="display">That fence line ends here</h1>
+        <p class="lead">We couldn't find that page.</p>
+        <a href="/" class="btn btn--primary">Back to home</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,9 @@
+---
+import Icon from './Icon.astro';
+import { settings, telHref } from '../lib/site.js';
+---
+
+<a class="big-phone" href={telHref()}>
+  <span class="big-phone-icon"><Icon name="phone" color="#ffffff" /></span>
+  {settings.phone}
+</a>

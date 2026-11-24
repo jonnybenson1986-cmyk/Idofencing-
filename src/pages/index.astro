@@ -1,0 +1,139 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import BigPhone from '../components/BigPhone.astro';
+import page from '../content/home.json';
+import { settings, telHref, fill } from '../lib/site.js';
+
+const { hero, services, work, quote } = page;
+const trust = page.trust.map(fill).filter(Boolean);
+const stageClass = (stage: string) => 'stage stage--' + String(stage).toLowerCase();
+---
+
+<Base
+  title={page.seo.title}
+  description={page.seo.description}
+  topbar={page.topbar}
+  nav={[
+    { label: 'Services', href: '#services' },
+    { label: 'Our Work', href: '#work' },
+    { label: 'Contact', href: '#quote' },
+    { label: 'For Builders', href: '/builders/', highlight: true },
+  ]}
+  cta={{ label: 'Get a Free Quote', href: '#quote' }}
+  footerLinks={[
+    { label: 'Services', href: '#services' },
+    { label: 'Our Work', href: '#work' },
+    { label: 'Free Quote', href: '#quote' },
+    { label: 'For Builders', href: '/builders/' },
+  ]}
+>
+  <!-- Hero -->
+  <section class="hero">
+    <img class="hero-bg" src={hero.image} alt="" fetchpriority="high" />
+    <div class="container">
+      {hero.badge && <span class="badge">{hero.badge}</span>}
+      <h1>{hero.heading}</h1>
+      <p>{hero.text}</p>
+      <div class="btn-row">
+        <a href="#quote" class="btn btn--primary">Get a Free Quote</a>
+        <a href={telHref()} class="btn btn--light">Call {settings.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust strip -->
+  <section class="strip" aria-label="Why choose us">
+    <div class="container">
+      {trust.map((item) => (
+        <div class="strip-item"><Icon name="check" strokeWidth={2.4} />{item}</div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="section">
+    <div class="container section-body">
+      <div class="section-head" style="max-width: 680px">
+        <span class="eyebrow">{services.eyebrow}</span>
+        <h2 class="display">{services.heading}</h2>
+      </div>
+      <div class="grid grid--3">
+        {services.items.map((s) => (
+          <article class="card">
+            {s.image && <img src={s.image} alt={s.alt || ''} loading="lazy" />}
+            <div class="card-body">
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Before & after -->
+  <section id="work" class="section section--dark">
+    <div class="container section-body">
+      <div class="section-head">
+        <span class="eyebrow">{work.eyebrow}</span>
+        <h2 class="display">{work.heading}</h2>
+        {work.intro && <p class="lead">{work.intro}</p>}
+      </div>
+      <div class="jobs">
+        {work.jobs.map((job) => (
+          <div class="job">
+            <h3>{job.title}</h3>
+            <div class:list={['job-photos', { 'job-photos--3': job.photos.length >= 3 }]}>
+              {job.photos.map((p) => (
+                <figure class="job-photo">
+                  <img src={p.image} alt={p.alt || ''} loading="lazy" />
+                  {p.stage && <figcaption class={stageClass(p.stage)}>{p.stage}</figcaption>}
+                </figure>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section id="quote" class="section section--grey">
+    <div class="container contact">
+      <div class="contact-intro">
+        <span class="eyebrow">{quote.eyebrow}</span>
+        <h2 class="display">{quote.heading}</h2>
+        <p class="lead">{quote.text}</p>
+        <BigPhone />
+        {settings.facebookUrl && (
+          <p>Or message us on Facebook: <a href={settings.facebookUrl} rel="noopener" target="_blank">{settings.facebookLabel || 'Facebook'}</a></p>
+        )}
+      </div>
+
+      <form
+        class="form"
+        name="quote"
+        method="POST"
+        action="/thanks/"
+        data-netlify="true"
+        netlify-honeypot="company-website"
+      >
+        <input type="hidden" name="form-name" value="quote" />
+        <p class="honeypot"><label>Leave this empty <input name="company-website" tabindex="-1" autocomplete="off" /></label></p>
+
+        <label class="field">Name<input type="text" name="name" autocomplete="name" required /></label>
+        <label class="field">Phone<input type="tel" name="phone" autocomplete="tel" required /></label>
+        <label class="field">Suburb<input type="text" name="suburb" autocomplete="address-level2" /></label>
+        <label class="field">Fence type
+          <select name="fence-type">
+            {quote.fenceTypes.map((t) => <option>{t}</option>)}
+          </select>
+        </label>
+        <label class="field field--full">Approx. length (metres)<input type="text" name="length" inputmode="decimal" /></label>
+        <label class="field field--full">Tell us about the job<textarea name="message" rows="4"></textarea></label>
+        <button type="submit" class="btn btn--primary">{quote.button}</button>
+      </form>
+    </div>
+  </section>
+</Base>

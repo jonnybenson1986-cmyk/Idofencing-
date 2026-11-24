@@ -1,0 +1,183 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import BigPhone from '../components/BigPhone.astro';
+import page from '../content/builders.json';
+import { settings, telHref, fill, pad2 } from '../lib/site.js';
+
+const { hero, compliance, scope, process, projects, tender } = page;
+const t = projects.testimonial;
+const hasEmail = settings.email && !settings.email.startsWith('[');
+---
+
+<Base
+  title={page.seo.title}
+  description={page.seo.description}
+  topbar={page.topbar}
+  phoneLabel={page.phoneLabel}
+  nav={[
+    { label: 'Homeowners', href: '/' },
+    { label: 'Site-ready', href: '#compliance' },
+    { label: 'How we work', href: '#process' },
+    { label: 'Projects', href: '#projects' },
+  ]}
+  cta={{ label: 'Send us your plans', href: '#tender' }}
+  footerLinks={[
+    { label: 'Homeowners', href: '/' },
+    { label: 'How we work', href: '#process' },
+    { label: 'Builder quotes', href: '#tender' },
+  ]}
+>
+  <!-- Hero -->
+  <section class="hero">
+    <img class="hero-bg" src={hero.image} alt="" fetchpriority="high" />
+    <div class="container">
+      {hero.badge && <span class="badge">{hero.badge}</span>}
+      <h1>{hero.heading}</h1>
+      <p>{hero.text}</p>
+      <div class="btn-row">
+        <a href="#tender" class="btn btn--primary">Send us your plans</a>
+        <a href={telHref()} class="btn btn--light">Call {settings.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key facts -->
+  <section class="strip" aria-label="Key facts">
+    <div class="container" style="padding-top: 30px; padding-bottom: 30px">
+      {page.facts.map((f) => (
+        <div class="fact">
+          <span class="fact-value">{fill(f.value)}</span>
+          <span class="fact-label">{f.label}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Site-ready / compliance -->
+  <section id="compliance" class="section">
+    <div class="container split">
+      <div class="stack">
+        <span class="eyebrow">{compliance.eyebrow}</span>
+        <h2 class="display">{compliance.heading}</h2>
+        <p class="lead">{compliance.text}</p>
+        <ul class="checklist">
+          {compliance.items.map((item) => (
+            <li><Icon name="check" size={22} strokeWidth={2.6} />{fill(item)}</li>
+          ))}
+        </ul>
+      </div>
+      {compliance.image && <img class="split-img" src={compliance.image} alt={compliance.alt || ''} loading="lazy" />}
+    </div>
+  </section>
+
+  <!-- Scope -->
+  <section class="section section--grey">
+    <div class="container section-body" style="gap: 44px">
+      <div class="section-head">
+        <span class="eyebrow">{scope.eyebrow}</span>
+        <h2 class="display">{scope.heading}</h2>
+      </div>
+      <div class="grid grid--4">
+        {scope.items.map((s) => (
+          <div class="tile">
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section id="process" class="section">
+    <div class="container section-body" style="gap: 44px">
+      <div class="section-head">
+        <span class="eyebrow">{process.eyebrow}</span>
+        <h2 class="display">{process.heading}</h2>
+      </div>
+      <ol class="steps">
+        {process.steps.map((s, i) => (
+          <li class="step">
+            <span class="step-num" aria-hidden="true">{pad2(i + 1)}</span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section section--dark">
+    <div class="container section-body" style="gap: 44px">
+      <div class="section-head">
+        <span class="eyebrow">{projects.eyebrow}</span>
+        <h2 class="display">{projects.heading}</h2>
+      </div>
+      <div class="projects">
+        {projects.items.map((p) => (
+          <figure class="project">
+            <img src={p.image} alt={p.alt || ''} loading="lazy" />
+            <figcaption>
+              <strong>{p.title}</strong>
+              {p.details && <span>{p.details}</span>}
+            </figcaption>
+          </figure>
+        ))}
+        {t?.quote && (
+          <figure class="testimonial">
+            <blockquote>“{t.quote}”</blockquote>
+            <figcaption>— {[t.name, t.company].filter(Boolean).join(', ')}</figcaption>
+          </figure>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Tender form -->
+  <section id="tender" class="section section--grey">
+    <div class="container contact">
+      <div class="contact-intro">
+        <span class="eyebrow">{tender.eyebrow}</span>
+        <h2 class="display">{tender.heading}</h2>
+        <p class="lead">{tender.text}</p>
+        <BigPhone />
+        {hasEmail && <p>Email: <a href={`mailto:${settings.email}`}>{settings.email}</a></p>}
+      </div>
+
+      <form
+        class="form form--wide"
+        name="builder-quote"
+        method="POST"
+        action="/thanks/"
+        enctype="multipart/form-data"
+        data-netlify="true"
+        netlify-honeypot="company-website"
+      >
+        <input type="hidden" name="form-name" value="builder-quote" />
+        <p class="honeypot"><label>Leave this empty <input name="company-website" tabindex="-1" autocomplete="off" /></label></p>
+
+        <label class="field">Company<input type="text" name="company" autocomplete="organization" required /></label>
+        <label class="field">Contact name<input type="text" name="name" autocomplete="name" required /></label>
+        <label class="field">Phone<input type="tel" name="phone" autocomplete="tel" required /></label>
+        <label class="field">Email<input type="email" name="email" autocomplete="email" required /></label>
+        <label class="field">Site suburb<input type="text" name="suburb" /></label>
+        <label class="field">Project type
+          <select name="project-type">
+            {tender.projectTypes.map((o) => <option>{o}</option>)}
+          </select>
+        </label>
+        <label class="field">Approx. metres<input type="text" name="metres" inputmode="decimal" /></label>
+        <label class="field">Needed on site by<input type="date" name="date" /></label>
+        <label class="field field--full">Plans / fence schedule (PDF)
+          <input type="file" name="plans" accept=".pdf,image/*" />
+          <span class="hint">PDF or photo, up to 8 MB. Bigger files? Email them through instead.</span>
+        </label>
+        <label class="field field--full">Notes<textarea name="message" rows="3"></textarea></label>
+        <label class="check"><input type="checkbox" name="compliance-pack" value="yes" />{tender.packLabel}</label>
+        <button type="submit" class="btn btn--primary">{tender.button}</button>
+      </form>
+    </div>
+  </section>
+</Base>

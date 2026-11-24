@@ -1,0 +1,229 @@
+# Decap CMS configuration — https://decapcms.org/docs/configuration-options/
+#
+# The CMS edits the JSON files in src/content/ and commits them to GitHub.
+# Netlify rebuilds the site automatically after every save.
+#
+# The GitHub repository the CMS saves to.
+backend:
+  name: github
+  repo: jonnybenson1986-cmyk/idofencing-
+  branch: main
+  commit_messages:
+    update: "Update {{collection}} “{{slug}}” via CMS"
+    uploadMedia: "Upload “{{path}}” via CMS"
+    deleteMedia: "Delete “{{path}}” via CMS"
+
+# Lets you edit locally without logging in: run `npm run cms` alongside `npm run dev`.
+local_backend: true
+
+site_url: /
+display_url: /
+logo_url: /images/logo.jpg
+
+media_folder: public/images
+public_folder: /images
+
+# Re-usable field definitions
+x-image: &image { label: Photo, name: image, widget: image, choose_url: false }
+x-alt: &alt { label: Photo description (for screen readers & Google), name: alt, widget: string, required: false, hint: "e.g. “Grey Colorbond fence beside a house”" }
+x-eyebrow: &eyebrow { label: Small heading (red label above), name: eyebrow, widget: string }
+x-heading: &heading { label: Heading, name: heading, widget: string }
+x-seo: &seo
+  label: Search engine (Google) listing
+  name: seo
+  widget: object
+  collapsed: true
+  fields:
+    - { label: Page title, name: title, widget: string, hint: "Shown in the browser tab and Google results. Aim for under 60 characters." }
+    - { label: Description, name: description, widget: text, hint: "Shown under the title in Google. Aim for 120–155 characters." }
+
+collections:
+  - name: pages
+    label: Pages
+    editor: { preview: false }
+    files:
+      # ------------------------------------------------------------ HOME
+      - name: home
+        label: Home page
+        file: src/content/home.json
+        fields:
+          - *seo
+          - { label: Top bar text, name: topbar, widget: string }
+          - label: Hero (big banner)
+            name: hero
+            widget: object
+            fields:
+              - { label: Badge, name: badge, widget: string, required: false }
+              - *heading
+              - { label: Text, name: text, widget: text }
+              - { label: Background photo, name: image, widget: image, choose_url: false }
+          - label: Red tick strip
+            name: trust
+            widget: list
+            field: { label: Item, name: item, widget: string }
+            hint: "Tip: {serviceArea} is replaced with the service area from Site Settings."
+          - label: Services
+            name: services
+            widget: object
+            fields:
+              - *eyebrow
+              - *heading
+              - label: Services
+                name: items
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+                  - *image
+                  - *alt
+          - label: Our work (before & after)
+            name: work
+            widget: object
+            fields:
+              - *eyebrow
+              - *heading
+              - { label: Intro, name: intro, widget: string, required: false }
+              - label: Jobs
+                name: jobs
+                widget: list
+                summary: "{{fields.title}}"
+                hint: "Add a job, then add 2 or 3 photos to it (Before / During / After)."
+                fields:
+                  - { label: Job title, name: title, widget: string }
+                  - label: Photos
+                    name: photos
+                    widget: list
+                    summary: "{{fields.stage}}"
+                    fields:
+                      - { label: Label, name: stage, widget: select, options: [Before, During, After] }
+                      - *image
+                      - *alt
+          - label: Free quote section
+            name: quote
+            widget: object
+            fields:
+              - *eyebrow
+              - *heading
+              - { label: Text, name: text, widget: text }
+              - { label: Fence type options (form dropdown), name: fenceTypes, widget: list, field: { label: Option, name: option, widget: string } }
+              - { label: Button text, name: button, widget: string }
+
+      # ------------------------------------------------------------ BUILDERS
+      - name: builders
+        label: For Builders page
+        file: src/content/builders.json
+        fields:
+          - *seo
+          - { label: Top bar text, name: topbar, widget: string }
+          - { label: Phone label in top bar, name: phoneLabel, widget: string }
+          - label: Hero (big banner)
+            name: hero
+            widget: object
+            fields:
+              - { label: Badge, name: badge, widget: string, required: false }
+              - *heading
+              - { label: Text, name: text, widget: text }
+              - { label: Background photo, name: image, widget: image, choose_url: false }
+          - label: Key facts strip
+            name: facts
+            widget: list
+            summary: "{{fields.value}} — {{fields.label}}"
+            fields:
+              - { label: Big value, name: value, widget: string, hint: "e.g. $20M, 2 days, Brisbane North" }
+              - { label: Label, name: label, widget: string }
+          - label: Site-ready (compliance)
+            name: compliance
+            widget: object
+            fields:
+              - *eyebrow
+              - *heading
+              - { label: Text, name: text, widget: text }
+              - label: Checklist
+                name: items
+                widget: list
+                field: { label: Item, name: item, widget: string }
+                hint: "Tip: {abn} is replaced with the ABN from Site Settings."
+              - *image
+              - *alt
+          - label: Scope we take on
+            name: scope
+            widget: object
+            fields:
+              - *eyebrow
+              - *heading
+              - label: Items
+                name: items
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+          - label: How we work (steps)
+            name: process
+            widget: object
+            fields:
+              - *eyebrow
+              - *heading
+              - label: Steps
+                name: steps
+                widget: list
+                summary: "{{fields.title}}"
+                hint: "Steps are numbered automatically (01, 02, …) in the order shown."
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+          - label: Recent projects
+            name: projects
+            widget: object
+            fields:
+              - *eyebrow
+              - *heading
+              - label: Projects
+                name: items
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Details, name: details, widget: string, required: false, hint: "e.g. Suburb · 120 m · Builder name" }
+                  - *image
+                  - *alt
+              - label: Builder testimonial
+                name: testimonial
+                widget: object
+                hint: "Leave the quote empty to hide the testimonial."
+                fields:
+                  - { label: Quote, name: quote, widget: text, required: false }
+                  - { label: Name, name: name, widget: string, required: false }
+                  - { label: Company, name: company, widget: string, required: false }
+          - label: Builder quote form section
+            name: tender
+            widget: object
+            fields:
+              - *eyebrow
+              - *heading
+              - { label: Text, name: text, widget: text }
+              - { label: Project type options (form dropdown), name: projectTypes, widget: list, field: { label: Option, name: option, widget: string } }
+              - { label: Compliance pack checkbox label, name: packLabel, widget: string }
+              - { label: Button text, name: button, widget: string }
+
+  # -------------------------------------------------------------- SETTINGS
+  - name: settings
+    label: Site Settings
+    editor: { preview: false }
+    files:
+      - name: general
+        label: Business details
+        file: src/content/settings.json
+        fields:
+          - { label: Business name, name: businessName, widget: string, hint: "The last word is shown in red in the header." }
+          - { label: Phone, name: phone, widget: string, hint: "Shown everywhere on the site and used for tap-to-call." }
+          - { label: Email, name: email, widget: string, required: false }
+          - { label: ABN, name: abn, widget: string, required: false }
+          - { label: Service area, name: serviceArea, widget: string, required: false, hint: "e.g. Cairns & surrounds" }
+          - { label: Facebook page link, name: facebookUrl, widget: string, required: false, hint: "Full link, e.g. https://www.facebook.com/… Leave empty to hide." }
+          - { label: Facebook link text, name: facebookLabel, widget: string, required: false }
+          - { label: Website address, name: siteUrl, widget: string, required: false, hint: "e.g. https://www.idofencing.com.au — used for Google and social sharing." }
+          - { label: Accent colour, name: accent, widget: color, allowInput: true }
+          - { label: Logo, name: logo, widget: image, choose_url: false }
+          - { label: Social sharing image, name: socialImage, widget: image, choose_url: false, hint: "Shown when the site is shared on Facebook etc. 1200×630 works best." }

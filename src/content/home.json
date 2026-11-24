@@ -1,0 +1,79 @@
+{
+  "seo": {
+    "title": "I Do Fencing | Timber, Colorbond & Commercial Fencing",
+    "description": "Strong, straight fences built to last. Timber paling, Colorbond and commercial fencing with old fence removal and free, no-obligation quotes."
+  },
+  "topbar": "Residential & commercial fencing · Free quotes",
+  "hero": {
+    "badge": "Timber · Colorbond · Commercial",
+    "heading": "Strong, straight fences built to last.",
+    "text": "From timber paling boundaries to Colorbond and commercial jobs — we pull out the old, put in the new and leave the site clean.",
+    "image": "/images/raked-paling-sloping-block.jpg"
+  },
+  "trust": [
+    "Free, no-obligation quotes",
+    "Old fence removal",
+    "Residential & commercial",
+    "{serviceArea}"
+  ],
+  "services": {
+    "eyebrow": "What we do",
+    "heading": "Fencing for every property",
+    "items": [
+      {
+        "title": "Timber Paling",
+        "text": "Classic treated-pine paling fences with plinths, lapped or butted, stepped or raked to suit sloping blocks.",
+        "image": "/images/paling-fence-with-gate.jpg",
+        "alt": "New timber paling fence with black pool gate"
+      },
+      {
+        "title": "Colorbond",
+        "text": "Low-maintenance steel fencing in a range of Colorbond colours — clean lines, privacy and no painting.",
+        "image": "/images/colorbond-fence.jpg",
+        "alt": "Grey Colorbond fence beside a house"
+      },
+      {
+        "title": "Commercial & Gates",
+        "text": "Long runs for commercial and industrial sites, plus gates and pool-style fencing to finish the job.",
+        "image": "/images/commercial-steel-fence.jpg",
+        "alt": "Long black steel fence on a commercial site"
+      }
+    ]
+  },
+  "work": {
+    "eyebrow": "Our work",
+    "heading": "Before & after",
+    "intro": "Real jobs, straight off the tools.",
+    "jobs": [
+      {
+        "title": "Timber paling replacement",
+        "photos": [
+          { "stage": "Before", "image": "/images/paling-before.jpg", "alt": "Old fence removed, frame going up" },
+          { "stage": "After", "image": "/images/paling-fence-with-gate.jpg", "alt": "Finished timber paling fence" }
+        ]
+      },
+      {
+        "title": "Colorbond install",
+        "photos": [
+          { "stage": "Before", "image": "/images/colorbond-before.jpg", "alt": "Posts set in the ground for a Colorbond fence" },
+          { "stage": "After", "image": "/images/colorbond-fence.jpg", "alt": "Finished grey Colorbond fence" }
+        ]
+      },
+      {
+        "title": "Full boundary rebuild",
+        "photos": [
+          { "stage": "Before", "image": "/images/boundary-before.jpg", "alt": "Collapsed old fence along a house" },
+          { "stage": "During", "image": "/images/boundary-during.jpg", "alt": "New posts and rails going in" },
+          { "stage": "After", "image": "/images/boundary-after.jpg", "alt": "Finished timber paling boundary fence" }
+        ]
+      }
+    ]
+  },
+  "quote": {
+    "eyebrow": "Free quote",
+    "heading": "Let's talk about your fence",
+    "text": "Tell us what you need and we'll get back to you with a free quote. Prefer to talk? Give us a call.",
+    "fenceTypes": ["Timber paling", "Colorbond", "Commercial", "Gates", "Not sure yet"],
+    "button": "Send my quote request"
+  }
+}

@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import BigPhone from '../components/BigPhone.astro';
+import home from '../content/home.json';
+---
+
+<Base
+  title="Thanks — we'll be in touch | I Do Fencing"
+  description="Your quote request has been sent."
+  topbar={home.topbar}
+  nav={[
+    { label: 'Home', href: '/' },
+    { label: 'For Builders', href: '/builders/', highlight: true },
+  ]}
+  cta={{ label: 'Get a Free Quote', href: '/#quote' }}
+  footerLinks={[
+    { label: 'Home', href: '/' },
+    { label: 'For Builders', href: '/builders/' },
+  ]}
+  noindex
+>
+  <section class="section simple">
+    <div class="container">
+      <div class="stack">
+        <span class="eyebrow">Request sent</span>
+        <h1 class="display">Thanks, we've got it</h1>
+        <p class="lead">We'll look over the details and get back to you shortly. If it's urgent, give us a call.</p>
+        <BigPhone />
+        <a href="/" class="btn btn--primary">Back to home</a>
+      </div>
+    </div>
+  </section>
+</Base>

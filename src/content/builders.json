@@ -1,0 +1,79 @@
+{
+  "seo": {
+    "title": "Fencing Subcontractor for Builders & Developers | I Do Fencing",
+    "description": "Boundary, Colorbond and commercial fencing subcontracted on new builds, multi-unit and commercial sites. Send the plans, get an itemised quote, book us in around your program."
+  },
+  "topbar": "Fencing subcontractor for builders, developers & commercial sites",
+  "phoneLabel": "Builders line:",
+  "hero": {
+    "badge": "For builders & developers",
+    "heading": "Your fencing, off your plate.",
+    "text": "Boundary, Colorbond and commercial fencing subcontracted on new builds, multi-unit and commercial sites. Send the plans, get an itemised quote, book us in around your program.",
+    "image": "/images/commercial-steel-fence.jpg"
+  },
+  "facts": [
+    { "value": "[$X]M", "label": "Public liability cover" },
+    { "value": "[X] days", "label": "Quote turnaround from plans" },
+    { "value": "[X] days", "label": "Payment terms on invoice" },
+    { "value": "[REGION]", "label": "Areas we cover" }
+  ],
+  "compliance": {
+    "eyebrow": "Site-ready",
+    "heading": "Paperwork sorted before we arrive",
+    "text": "We'll send everything your site manager needs to get us inducted and on the tools — no chasing.",
+    "items": [
+      "ABN {abn} & tax invoices",
+      "Public liability certificate of currency",
+      "White Cards for every worker on site",
+      "SWMS supplied for fencing works",
+      "Dial Before You Dig on every post line",
+      "Photo handover for every job"
+    ],
+    "image": "/images/colorbond-fence.jpg",
+    "alt": "Finished grey Colorbond fence on a residential site"
+  },
+  "scope": {
+    "eyebrow": "Scope we take on",
+    "heading": "One sub for the whole fence line",
+    "items": [
+      { "title": "New-build boundaries", "text": "Timber paling and Colorbond boundaries on single dwellings and estates, set out to your survey pegs." },
+      { "title": "Multi-unit & townhouses", "text": "Dividing fences, courtyard screens and common-area runs, staged to suit each handover." },
+      { "title": "Commercial & industrial", "text": "Long steel runs on kerbs and slabs for commercial, industrial and civic sites." },
+      { "title": "Demo, retaining plinths & gates", "text": "Old fence removal and disposal, sleeper plinths on sloping blocks, and gates to finish the job." }
+    ]
+  },
+  "process": {
+    "eyebrow": "How we work with builders",
+    "heading": "Plans in. Fence up. Invoice out.",
+    "steps": [
+      { "title": "Send plans & site address", "text": "Site plan, fence schedule or just a marked-up PDF — whatever you've got." },
+      { "title": "Itemised quote", "text": "Per-metre and per-item pricing so you can price it into your contract." },
+      { "title": "Booked into your program", "text": "We lock in a date around your other trades and confirm the day before." },
+      { "title": "Install & photo handover", "text": "Site left clean, completion photos sent, invoice to your accounts team." }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Recent projects",
+    "heading": "Work we've signed off",
+    "items": [
+      { "title": "Commercial steel run", "details": "[Suburb] · [metres] m · [builder/client]", "image": "/images/commercial-steel-fence.jpg", "alt": "Black steel fence run on a commercial site" },
+      { "title": "Raked paling on a sloping block", "details": "[Suburb] · [metres] m · [builder/client]", "image": "/images/raked-paling-sloping-block.jpg", "alt": "Timber paling fence on sloping block with sleeper plinth" },
+      { "title": "Colorbond boundary", "details": "[Suburb] · [metres] m · [builder/client]", "image": "/images/colorbond-fence.jpg", "alt": "Grey Colorbond fence" },
+      { "title": "Full boundary rebuild", "details": "[Suburb] · [metres] m · [builder/client]", "image": "/images/boundary-after.jpg", "alt": "New timber paling boundary fence" },
+      { "title": "Paling with gate", "details": "[Suburb] · [metres] m · [builder/client]", "image": "/images/paling-fence-with-gate.jpg", "alt": "Paling fence with black gate" }
+    ],
+    "testimonial": {
+      "quote": "[Quote from a builder you've worked with — name, company.]",
+      "name": "[Name]",
+      "company": "[Building company]"
+    }
+  },
+  "tender": {
+    "eyebrow": "Builder quotes",
+    "heading": "Send us the job",
+    "text": "Attach your plans and we'll come back with an itemised quote. Want us on your preferred-trades list? Tick the box and we'll send our compliance pack.",
+    "projectTypes": ["Single dwelling", "Multi-unit / townhouses", "Estate / subdivision", "Commercial / industrial"],
+    "packLabel": "Send me your compliance pack for our trades list",
+    "button": "Request a builder quote"
+  }
+}
