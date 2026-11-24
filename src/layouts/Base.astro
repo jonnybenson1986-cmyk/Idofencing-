@@ -35,6 +35,8 @@ const jsonLd = {
   ...(siteUrl && { url: siteUrl, image: siteUrl + settings.logo }),
   ...(settings.serviceArea && !settings.serviceArea.startsWith('[') && { areaServed: settings.serviceArea }),
   ...(settings.email && !settings.email.startsWith('[') && { email: settings.email }),
+  ...(settings.abn && !settings.abn.startsWith('[') && { taxID: 'ABN ' + settings.abn }),
+  ...(settings.facebookUrl && { sameAs: [settings.facebookUrl] }),
 };
 ---
 
@@ -103,6 +105,7 @@ const jsonLd = {
         </div>
         <div class="footer-links">
           {footerLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+          {settings.facebookUrl && <a href={settings.facebookUrl} rel="noopener" target="_blank">Facebook</a>}
           <a class="footer-phone" href={telHref()}>{settings.phone}</a>
         </div>
       </div>

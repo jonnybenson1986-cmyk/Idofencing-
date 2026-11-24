@@ -35,13 +35,15 @@ npm run cms        # in a 2nd terminal: lets http://localhost:4321/admin edit fi
 2. `public/admin/config.yml` already points at `jonnybenson1986-cmyk/idofencing-` — change `repo:` if you move the repository.
 3. In Netlify: **Add new site → Import from Git →** pick the repo. Build settings come from `netlify.toml`.
 4. Turn on form detection: **Site configuration → Forms → Enable form detection**, then redeploy.
-   Add an email notification under **Forms → Form notifications** so quote requests land in your inbox.
-5. Turn on CMS login: create a GitHub OAuth app (callback URL `https://api.netlify.com/auth/done`),
+5. Send quote requests to your inbox: **Site configuration → Notifications → Emails and webhooks →
+   Form submission notifications → Add notification → Email notification**. Email to notify:
+   `terang.scrappy@gmail.com`, Form: **Any form** (covers both the homeowner `quote` form and the
+   `builder-quote` form). Uploaded plans arrive as a download link in the email.
+6. Turn on CMS login: create a GitHub OAuth app (callback URL `https://api.netlify.com/auth/done`),
    then add its client ID/secret in Netlify under **Site configuration → Access & security → OAuth → Install provider → GitHub**.
-6. Visit `https://your-site/admin`, log in with GitHub, edit, hit **Publish** — Netlify rebuilds in about a minute.
-7. Add your domain under **Domain management**, then put it in **Site Settings → Website address** in the CMS.
+7. Visit `https://your-site/admin`, log in with GitHub, edit, hit **Publish** — Netlify rebuilds in about a minute.
+8. Add your domain under **Domain management**, then put it in **Site Settings → Website address** in the CMS.
 
 ## Still to fill in (placeholders from the mockup)
 
-- Site Settings: email, ABN, service area, Facebook link
-- Builders page: key facts (`[$X]M`, `[X] days`, `[REGION]`), project details, builder testimonial
+- Builders page: key facts (`[$X]M`, `[X] days`), project details, builder testimonial

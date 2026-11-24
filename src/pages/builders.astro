@@ -144,6 +144,9 @@ const hasEmail = settings.email && !settings.email.startsWith('[');
         <p class="lead">{tender.text}</p>
         <BigPhone />
         {hasEmail && <p>Email: <a href={`mailto:${settings.email}`}>{settings.email}</a></p>}
+        {settings.facebookUrl && (
+          <p>Facebook: <a href={settings.facebookUrl} rel="noopener" target="_blank">{settings.facebookLabel || 'Facebook'}</a></p>
+        )}
       </div>
 
       <form

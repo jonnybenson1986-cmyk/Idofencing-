@@ -7,7 +7,8 @@ import { settings, telHref, fill } from '../lib/site.js';
 
 const { hero, services, work, quote } = page;
 const trust = page.trust.map(fill).filter(Boolean);
-const stageClass = (stage: string) => 'stage stage--' + String(stage).toLowerCase();
+const hasEmail = settings.email && !settings.email.startsWith('[');
+const stageClass =(stage: string) => 'stage stage--' + String(stage).toLowerCase();
 ---
 
 <Base
@@ -106,6 +107,7 @@ const stageClass = (stage: string) => 'stage stage--' + String(stage).toLowerCas
         <h2 class="display">{quote.heading}</h2>
         <p class="lead">{quote.text}</p>
         <BigPhone />
+        {hasEmail && <p>Email: <a href={`mailto:${settings.email}`}>{settings.email}</a></p>}
         {settings.facebookUrl && (
           <p>Or message us on Facebook: <a href={settings.facebookUrl} rel="noopener" target="_blank">{settings.facebookLabel || 'Facebook'}</a></p>
         )}
