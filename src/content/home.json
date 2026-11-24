@@ -108,7 +108,6 @@
       "Gates",
       "Not sure yet"
     ],
-    "button": "Send my quote request",
     "smsButton": "Send as a text message",
     "smsIntro": "Hi James, quote request from the I Do Fencing website:",
     "smsHint": "Opens the messages app on your phone with your details filled in, ready to text to {phone}. Just press send."

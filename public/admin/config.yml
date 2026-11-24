@@ -107,7 +107,6 @@ collections:
               - *heading
               - { label: Text, name: text, widget: text }
               - { label: Fence type options (form dropdown), name: fenceTypes, widget: list, field: { label: Option, name: option, widget: string } }
-              - { label: Button text, name: button, widget: string }
               - { label: Text-message button text, name: smsButton, widget: string }
               - { label: Text message greeting, name: smsIntro, widget: string, hint: "First line of the pre-filled text, e.g. “Hi James, quote request from the website:”" }
               - { label: Text-message note under the button, name: smsHint, widget: string, required: false, hint: "{phone} is replaced with the number from Site Settings." }
